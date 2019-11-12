@@ -7,54 +7,30 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation';
 
 import Page1 from './page/page1';
-import Page2 from './page/page2';
+// import AppHome from './page/homePage';
+import AppHome from './page/homePage1'
 import Page3 from './page/page3';
 import Page4 from './page/page4';
 import Page5 from './page/page5';
+import VideoDetail from './components/videoDetail';
 
 const SELECTED_COLOR = '#ffc0cb';
 const UNSELECTED_COLOR = '#000';
 
 class App extends Component {
     render() {
-        return <AppContainer /> ;
+        return <AppContainer2 /> ;
     }
 }
 
-
-// 页面跳转：
-// this.props.navigation.navigate("Page4",{ name: 'Devio' })
-
 const AppNavigator = createMaterialTopTabNavigator(
     {
-        Page1: {
-            screen: Page1,
-            navigationOptions: {
-                // title: 可以用作headerTitle和tabBarLabel的备选的通用标题。
-                // tabBarOnPress: Tab被点击的回调函数，它的参数是一保函一下变量的对象：
-                //   navigation：页面的 navigation props
-                //   defaultHandler: tab press 的默认 handler
-                tabBarLabel: 'Page1',
-                tabBarColor: 'red',
-                tabBarIcon: ({ focused }) => (
-                    // <SvgUri
-                    //     width="18"
-                    //     height="18"
-                    //     source={{uri: 'http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg'}}
-                    //     fill={focused ? SELECTED_COLOR : UNSELECTED_COLOR}
-                    // />
-                    <Image
-                        source={require('./assets/image/timg.jpg')}
-                        style={{ width: 18, height: 18 }}
-                    />
-                )
-            }
-        },
-        Page2: {
-            screen: Page2,
+        AppHome: {
+            screen: AppHome,
             navigationOptions: {
                 tabBarLabel: 'Page2',
                 tabBarIcon: ({ focused }) => (
@@ -67,12 +43,31 @@ const AppNavigator = createMaterialTopTabNavigator(
                 )
             }
         },
+        Page1: {
+            screen: Page1,
+            navigationOptions: {
+                // title: 可以用作headerTitle和tabBarLabel的备选的通用标题。
+                // tabBarOnPress: Tab被点击的回调函数，它的参数是一保函一下变量的对象：
+                //   navigation：页面的 navigation props
+                //   defaultHandler: tab press 的默认 handler
+                // tabBarVisible: 导航是否可见
+                tabBarLabel: 'Page1',
+                tabBarColor: 'red',
+                tabBarIcon: ({ focused }) => (
+
+                    <Image
+                        source={require('./assets/image/timg.jpg')}
+                        style={{ width: 18, height: 18 }}
+                    />
+                )
+            }
+        },
         Page3,
         Page4,
         Page5
     },
     {
-        initialRouteName: 'Page1',
+        initialRouteName: 'AppHome',
         tabBarPosition: 'bottom',
         tabBarOptions: {
             showIcon: true,
@@ -102,5 +97,22 @@ const AppNavigator = createMaterialTopTabNavigator(
 );
 
 const AppContainer = createAppContainer(AppNavigator);
+
+const AppStackNavigator = createStackNavigator(
+    {
+        AppContainer: {
+            screen: AppContainer,
+            navigationOptions: {
+                tabBarVisible: true,
+                header: null
+            }
+        },
+        VideoDetail: {
+            screen: VideoDetail,
+        }
+    }
+)
+
+const AppContainer2 = createAppContainer(AppStackNavigator);
 
 export default App;

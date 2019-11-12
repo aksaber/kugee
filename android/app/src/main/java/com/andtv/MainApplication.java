@@ -12,6 +12,10 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.umeng.commonsdk.UMConfigure;
+import com.andtv.DplusReactPackage;
+import com.andtv.RNUMConfigure;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -27,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          packages.add(new DplusReactPackage());  //添加友盟统计package
           return packages;
         }
 
@@ -45,6 +50,8 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    RNUMConfigure.init(this, "59892f08310c9307b60023d0", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
+            "669c30a9584623e70e8cd01b0381dcb4");
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
 

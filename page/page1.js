@@ -13,6 +13,8 @@ import {
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 
+import AnalyticsUtil from '../bridgeJS/AnalyticsUtil';
+
 const screenWidth = Dimensions.get('window').width;
 
 function formatTime(second) {
@@ -50,6 +52,10 @@ class Page1 extends Component {
             isFullScreen: false,     // 当前是否全屏显示（纵向）
             playFromBeginning: false, // 是否从头开始播放
         };
+    }
+
+    componentDidMount() {
+        console.log(1, AnalyticsUtil.onPageStart);
     }
 
     _onLoadStart = () => {
